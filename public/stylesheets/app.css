@@ -79,3 +79,12 @@ button {
   /*color: #dbf4ff;*/
   color: white;
 }
+
+.film-name-div {
+  min-height: 64px;
+  display: flex;
+}
+
+.film-name {
+  margin: auto;
+}

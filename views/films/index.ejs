@@ -15,7 +15,9 @@
           <img class="img-fluid" src="<%= film.image %>" style="height:480px">
           <div class="img-thumbnail py-2 px-2 mb-2 thumbnailp-0">
             <div class="caption pb-1">
-              <h4><%= film.name %></h4>
+              <div class="film-name-div" >
+                <h4 class="film-name"><%= film.name %></h4>
+              </div>
  
               <div class="col pb-2">
                 <% var avgRating = Math.floor(Math.min(5, film.rating)); %>
