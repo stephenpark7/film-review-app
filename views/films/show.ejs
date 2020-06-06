@@ -1,0 +1,158 @@
+<% include ../partials/header %>
+
+<%
+// Function prototypes
+truncateDate = function(createdDate) {
+  // var date = String(data).split(" ").slice(0, 5).join(" ");
+  // date = date.split(":").slice(0, 2).join(":");
+  // return date;
+  var currDate = new Date(Date.now());
+  var timeDiff = Math.abs(createdDate.getTime() - currDate.getTime());
+  var diffDays = Math.ceil(timeDiff / (3600 * 24)); // 1000 * 3600 * 24 = days
+  var pluralBool = diffDays > 1 || diffDays == 0 ? "s" : "";
+  return "Posted " + diffDays + " minute" + pluralBool + " ago";
+}
+%>
+
+<div class="anyPageContainer container">
+  <div class="column">
+    <div class="row">
+      <!--Info list group-->
+      <!-- <div class="col-md-3 pt-2 pb-4">
+        <h4><a href="#"><%= film.name %></a></h4>
+        <div class="list-group">
+          <li class="list-group-item active">Info 1</li>
+          <li class="list-group-item">Info 2</li>
+          <li class="list-group-item">Info 3</li>
+        </div>
+      </div> -->
+      <!--Film content-->
+      <div class="col-md-3">
+        <img class="img-fluid"  src="<%= film.image %>">
+      </div>
+      <div class="col-md-9">
+        <!--Film image-->
+        <!--Border-->
+        <div class="border p-2">
+          <!--Film name-->
+          <div class="row">
+            <div class="col">
+              <h4><a href="#"><%= film.name %></a></h4>
+              
+              <% var avgRating = Math.floor(Math.min(5, film.rating)); %>
+              <% for (var i = 0; i < avgRating ; i++) { %>
+                <span class="oi oi-star"></span>
+              <% } %>
+              <% for (var i = 0; i < 5 - avgRating; i++) { %>
+                <span class="oi oi-star" style="color:rgba(1,1,1,0.25)"></span>
+              <% } %>
+              
+            </div>
+            
+            <div class="col">
+              <% if(film.genre) { %>
+                <h4 class="float-right"><%= film.genre %></h4>
+              <% } %>
+            </div>
+          </div>
+          <!--Submitted by and date-->
+          <div class="row mb-2">
+            <div class="col">
+              <span font="italic">Submitted by <a href="#"><%= film.author.username  %></a></span>
+            </div>
+            <div class="col">
+              <span class="float-right">Posted <%= moment(film.created).fromNow() %></span>
+            </div>
+          </div>
+          <!--Horizontal line-->
+          <div class="row">
+            <div class="col">
+              <hr class="mt-0 mb-2">
+            </div>
+          </div>
+          <!--Film description-->
+          <div class="row">
+            <div class="col">
+              <p class="mb-0">
+                <%= film.description %>
+              </p>
+            </div>
+          </div>
+          <!--User auth-->
+          <% if (currentUser && film.author.id.equals(currentUser._id)) { %>
+            <div class="row mt-2">
+              <!--Edit-->
+              <div class="col mb-1">
+                <a class="btn btn-sm btn-primary" href="./<%= film._id %>/edit">
+                   Edit Film
+                </a>
+                <!--Delete-->
+                <form action="/films/<%= film._id %>?_method=DELETE" method="POST" style="display:inline">
+                  <button class="btn btn-sm btn-danger">
+                    Delete Film
+                  </button>
+                </form>
+              </div>
+            </div>
+          <% } %>
+        </div>
+        
+        <!--Reviews box border-->
+        <div class="border mt-2 p-2">
+          <!--Reviews header-->
+          <div class="row mb-1">
+            <div class="col">
+              <h4 style="color:green">Reviews</h4>
+            </div>
+            <div class="col">
+              <a class="btn btn-sm btn-success float-right" href="/films/<%= film._id %>/reviews/new">Leave a Review</a>
+            </div>
+          </div>
+          
+          <!--Reiterate through reviews-->
+          <% film.reviews.slice().reverse().forEach(function(review) { %>
+            <div class="row">
+              <!--Review-->
+              <div class="col">
+                <!--Username-->
+                <a href="#"><%= review.author.username %></a>
+                <!--Rating-->
+                <% for (var i = 0; i < review.rating; i++) { %>
+                  <span class="oi oi-star"></span>
+                <% } %>
+                <% for (var i = 0; i < 5 - review.rating; i++) { %>
+                  <span class="oi oi-star" style="color:rgba(1,1,1,0.25)"></span>
+                <% } %>
+                <!--Date-->
+                <span class="float-right">
+                  Posted <%= moment(review.created).fromNow() %>
+                </span>
+              </div>
+            </div>
+            <!--Description-->
+            <div class="row mb-2">
+              <div class="col">
+                <%= review.text %>
+              </div>
+            </div>
+            <!--Edit-->
+            <% if (currentUser && review.author.id.equals(currentUser._id)) { %>
+            <div class="row">
+              <div class="col">
+                <a class="btn btn-sm btn-primary mb-1" href="<%= film._id %>/reviews/<%= review._id %>/edit">Edit Review</a>
+                <form action="/films/<%= film._id %>/reviews/<%= review._id %>/?_method=DELETE" method="POST" style="display:inline">
+                  <button class="btn btn-sm btn-danger mb-1">Delete Review</button>
+                </form>
+              </div>
+            </div>
+            <% } %>
+          <% }); %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<% include ../partials/footer %>

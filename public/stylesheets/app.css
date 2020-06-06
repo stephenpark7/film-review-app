@@ -1,0 +1,81 @@
+h4 a {
+  font-family: "Raleway", sans-serif;
+}
+
+h4 {
+  font-family: "Raleway", sans-serif;
+  font-weight: bold;
+}
+
+p {
+  font-family: 'Fira Sans Condensed', sans-serif;
+}
+
+.anyPageContainer {
+  padding-top: 1.0rem;
+}
+
+.landingPageContainer {
+  padding-top: 0.5rem;
+  padding-left: 2.0rem;
+  padding-bottom: 2.0rem;
+}
+
+.alertContainer {
+  padding-top: 3.5rem;
+}
+
+.jumbotron {
+  padding-top: 2.0rem;
+  background-color: rgb(250, 250, 250);
+}
+
+#filmsForm {
+  width: 40%;
+  margin: 0 auto;
+  min-width: 300px;
+}
+
+#footer {
+  margin-top: 1rem;
+}
+
+.img-fluid {
+  width: 100%;
+}
+
+hr {
+  display: block;
+  clear: both;
+}
+
+.starActive {
+  color: yellow;
+}
+
+.starActive:hover {
+  color: yellow;
+}
+
+.btn-secondary {
+  transition: .2s;
+}
+
+.oi-star.btn {
+  background-color: rgb(68, 68, 68);
+}
+
+button {
+  color: white;
+  border: none;
+}
+
+.btn:focus, .btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+
+.signedInText {
+  /*color: #dbf4ff;*/
+  color: white;
+}

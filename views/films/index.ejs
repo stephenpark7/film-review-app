@@ -1,0 +1,40 @@
+<% include ../partials/header %>
+
+<div class="anyPageContainer container">
+  
+  <div class="container">
+    <h1 class="display-4 font-weight-bold">Welcome to FilmCritic!</h1>
+    <p class="lead">See reviews for films written by our community.</p>
+    <a class="btn btn-primary btn-medium" href="/films/new" role="button">Add New Film</a>
+  </div>
+
+  <div class="container pt-3">
+    <div class="row" style="display:flex;flex-wrap:wrap;">
+      <% films.forEach(function(film){ %>
+        <div class="col-lg-4 col-md-6 text-center">
+          <img class="img-fluid" src="<%= film.image %>" style="height:480px">
+          <div class="img-thumbnail py-2 px-2 mb-2 thumbnailp-0">
+            <div class="caption pb-1">
+              <h4><%= film.name %></h4>
+ 
+              <div class="col pb-2">
+                <% var avgRating = Math.floor(Math.min(5, film.rating)); %>
+                <% for (var i = 0; i < avgRating ; i++) { %>
+                  <span class="oi oi-star"></span>
+                <% } %>
+                <% for (var i = 0; i < 5 - avgRating; i++) { %>
+                  <span class="oi oi-star" style="color:rgba(1,1,1,0.25)"></span>
+                <% } %>
+              </div>
+              
+              Submitted by <a href="#"><%= film.author.username %></a></em>
+            </div>
+            <a href="/films/<%= film._id %>" class="btn btn-info btn-small mt-1">Show More Info</a>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</div>
+
+<% include ../partials/footer %>

@@ -1,0 +1,33 @@
+<% include ../partials/header %>
+
+<div class="anyPageContainer container">
+  <h1 class="display-4 font-weight-bold text-center pb-2">Add a New Film</h1>
+  
+  <p class="text-center pb-2">Please fill in the below details to add a new film!</p>
+  <div id="filmsForm">
+    <form action="/films" method="POST">
+      <div class="form-group">
+        <span class="list-group-item active bg-secondary border-0">Name</span>
+        <input class="form-control" type="text" name="film[name]" aria-label="name">
+      </div>
+      <div class="form-group">
+        <span class="list-group-item active bg-secondary border-0">Image URL</span>
+        <input class="form-control" type="text" name="film[image]" aria-label="image-url">
+      </div>
+      <div class="form-group">
+        <span class="list-group-item active bg-secondary border-0">Description</span>
+        <input class="form-control" type="text" name="film[description]" aria-label="description">
+      </div>
+      <div class="form-group">
+        <span class="list-group-item active bg-secondary border-0">Genre</span>
+        <input class="form-control" type="text" name="film[genre]" aria-label="genre">
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-md form-control"><i class="fas fa-film mr-2"></i>Add New Film</button>
+      </div>
+    </form>
+    <a href="/films">Go Back</a>
+  </div>
+</div>
+
+<% include ../partials/footer %>

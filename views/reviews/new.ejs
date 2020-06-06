@@ -1,0 +1,98 @@
+<% include ../partials/header %>
+
+<div class="anyPageContainer container">
+
+    <h2 class="font-weight-bold text-center pb-2">Leave a review for <%= film.name %></h2>
+    <div id="filmsForm">
+      <!--<p class="lead">Thanks for reviewing!</p>-->
+      <form action="/films/<%= film._id %>/reviews" method="POST">
+        <div class="form-group">
+          <textarea class="form-control" type="text" name="review[text]" placeholder="Your review here!" rows="4" cols="50"></textarea>
+        </div>
+        <div class="form-group">
+          <% for (var i = 0; i < 5; i++) { %>
+            <button type="button" class="btn btn-dangerb oi oi-star starButton<%= i %>"></button>
+          <% } %>
+        </div>
+        <div class="form-group m-0">
+          <button onClick="submitBtn()" class="btn btn-primary btn-sm form-control">Submit</button>
+        </div>
+        <input type="hidden" id="starCount" name="review[rating]" value="">
+      </form>
+      <div class="pt-3">
+        <a href="/films/<%= film._id %>">Go Back</a>
+      </div>
+    </div>
+
+
+</div>
+
+<script>
+  var starsHovered = -1;
+  var starsSelected = -1;
+  
+  function submitBtn()
+  {
+    document.getElementById("starCount").value = Number(starsSelected) + 1;
+  }
+
+  // Mouse enter
+  $("body").on("mouseenter", ".oi-star", function() {
+    var classNames = $(this)[0].className.split(" ");
+    var starClass = classNames[4];
+    var classInd = starClass[starClass.length - 1];
+
+    if (starsHovered < 0 && starsSelected < 0) {
+      for (var starInd = 0; starInd <= classInd; starInd++) {
+        $(".starButton" + starInd).addClass("starActive");
+      }
+      starsHovered = classInd;
+    }
+  });
+  
+  // Mouse leave
+  $("body").on("mouseleave", ".oi-star", function() {
+    if (starsHovered > -1 && starsSelected < 0) {
+      $("button").removeClass("starActive");
+      starsHovered = -1;
+    }
+  });
+  
+  // Mouse click
+  $("body").on("click", ".oi-star", function() {
+    var classNames = $(this)[0].className.split(" ");
+    var starClass = classNames[4];
+    var classInd = starClass[starClass.length - 1];
+  
+    // Empty stars
+    if (starsSelected < 0) {
+      starsSelected = classInd;
+      
+      // Update buttons
+      $("button").removeClass("starActive");
+      
+      for (var starInd = 0; starInd <= classInd; starInd++) {
+        $(".starButton" + starInd).addClass("starActive");
+      }
+    }
+    else { // If stars are already selected
+      if (classInd == starsSelected) { // If clicked star is equivalent to selected star
+        $("button").removeClass("starActive"); // Remove all stars
+        starsHovered = -1;
+        starsSelected = -1;
+      }
+      else {
+        $("button").removeClass("starActive");
+        for (var starInd = 0; starInd <= classInd; starInd++) {
+          $(".starButton" + starInd).addClass("starActive");
+        }
+    
+        starsHovered = -1;
+        starsSelected = classInd;
+      }
+    }
+  });
+  
+</script>
+
+<% include ../partials/footer %>
