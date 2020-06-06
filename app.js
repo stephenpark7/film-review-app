@@ -22,7 +22,7 @@ var reviewRoutes = require("./routes/reviews"),
 mongoose.connect(process.env.DATABASEURL, {useUnifiedTopology: true, useNewUrlParser: true});
 mongoose.set("useFindAndModify", false);
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
