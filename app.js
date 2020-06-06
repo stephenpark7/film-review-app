@@ -11,7 +11,7 @@ const Film = require("./models/film"),
       Review = require("./models/review"),
       User = require("./models/user");
 
-const SERVER_PORT = 8080 || process.env.PORT;
+const SERVER_PORT = process.env.PORT || 8080;
 
 require("dotenv").config();
 
@@ -29,10 +29,13 @@ app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
 
 // PASSPORT configuration
-app.use(require("express-session")({
+const session = require("express-session");
+const MongoStore = require("connect-mongo")(session);
+app.use(session({
   secret: "ThisIsTheBestPasswordEver",
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: new MongoStore(options)
 }));
 
 app.use(passport.initialize());
