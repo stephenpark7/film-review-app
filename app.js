@@ -35,7 +35,7 @@ app.use(session({
   secret: "ThisIsTheBestPasswordEver",
   resave: false,
   saveUninitialized: false,
-  store: new MongoStore(options)
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 app.use(passport.initialize());
