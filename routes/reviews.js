@@ -113,7 +113,6 @@ router.delete("/:review_id", middleware.checkReviewOwnership, function(req, res)
   });
 });
 
-
 function calculateAverage(reviews) {
   if (reviews.length === 0) {
     return 0;

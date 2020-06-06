@@ -10,12 +10,6 @@ router.get("/", function(req, res){
   res.render("landing");
 });
 
-/*
-
-    AUTH routes
-    
-*/
-
 // Show register form
 router.get("/register", function(req, res) {
   res.render("register");
