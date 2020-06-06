@@ -1,6 +1,5 @@
 const express = require("express");
 const app = express();
-const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const flash = require("connect-flash");
@@ -23,7 +22,7 @@ var reviewRoutes = require("./routes/reviews"),
 mongoose.connect(process.env.DATABASEURL, {useUnifiedTopology: true, useNewUrlParser: true});
 mongoose.set("useFindAndModify", false);
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.urlencoded());
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
